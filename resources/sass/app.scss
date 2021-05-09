@@ -1,0 +1,117 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+$bgcolor: #f9f7fc;
+$primary-color: #f65d4e;
+$primary-color-background: #ffe9e9;
+
+html{
+    background-color: $bgcolor;
+}
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.primary-color{
+    background-color: $primary-color;
+}
+.primary-color-background{
+    background-color: $primary-color-background;
+}
+.primary-color-text{
+    color: $primary-color;
+}
+.title-color{
+    color: #0e1532;
+}
+.pagination {
+    justify-content: center !important;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #f65d4e;
+    background-color: #fdeeed;
+    border-color: #fdeeed;
+}
+.page-link {
+    position: relative;
+    display: block;
+    color: #f65d4e;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.custom-card-shadow {
+    border-radius: 10px !important;
+    box-shadow: 0 4px 20px 1px rgba(0,0,0,.06),0 1px 4px rgba(0,0,0,.08) !important;
+    border: 0 !important;
+    &>.form-control{
+        border-radius: 10px;
+        border: none !important;
+        &>label{
+            color: #9a9ea6 !important;
+        }
+    }
+ }
+
+
+
+  /* Gradients */
+  .gradient-blue {
+    background: #0288d1;
+    background: -webkit-linear-gradient(45deg, #0288d1 0%, #26c6da 100%);
+    background: linear-gradient(45deg, #0288d1 0%, #26c6da 100%);
+ }
+ .gradient-blue-shadow {
+    box-shadow: 0 2px 7px 0 #4b66ffc0;
+    text-shadow: 0 2px 4px #4b66ffc0;
+ }
+ .gradient-green-shadow {
+    box-shadow: 0 2px 7px 0 #049b75c5;
+    text-shadow: 0 2px 4px #049b75c5;
+ }
+ .gradient-blue-shadow-text {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+ }
+ .gradient-amber-shadow {
+    box-shadow: 0 6px 20px 0 #f2984a63 !important;
+ }
+ .gradient-orange {
+    background: #fc6076;
+    background: -webkit-linear-gradient(45deg, #fc6076 0%, #ff9a44 100%);
+    background: linear-gradient(45deg, #fc6076 0%, #ff9a44 100%);
+ }
+ .gradient-amber {
+    background: #f2994a;
+    background: -webkit-linear-gradient(45deg, #f2994a 0%, #f2c94c 100%);
+    background: linear-gradient(45deg, #f2994a 0%, #f2c94c 100%);
+ }
+ .gradient-red {
+    background: #eb3349;
+    background: -webkit-linear-gradient(45deg, #eb3349 0%, #f45c43 100%);
+    background: linear-gradient(45deg, #eb3349 0%, #f45c43 100%);
+ }
+ .gradient-pink {
+    background: #FF5252;
+    background: -webkit-linear-gradient(45deg, #FF5252 0%, #f48fb1 100%);
+    background: linear-gradient(45deg, #FF5252 0%, #f48fb1 100%);
+ }
+ .gradient-teal {
+    background: #009688;
+    background: -webkit-linear-gradient(45deg, #009688 0%, #38ef7d 100%);
+    background: linear-gradient(45deg, #009688 0%, #38ef7d 100%);
+ }
+ .gradient-purple {
+    background-color: #8E2DE2;
+    background: -webkit-linear-gradient(45deg, #4A00E0 0%, #8E2DE2 100%);
+    background: linear-gradient(45deg, #4A00E0 0%, #8E2DE2 100%);
+ }
