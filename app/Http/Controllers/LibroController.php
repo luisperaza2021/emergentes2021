@@ -7,6 +7,8 @@ use App\Models\Categoria;
 use App\Models\Editorial;
 use App\Models\Libro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class LibroController extends Controller
 {
@@ -85,13 +87,48 @@ class LibroController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Libro  $libro
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Libro $libro)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'titulo' => ['required'],
+            'imagen' => ['required','file', 'mimes:jpg,jpeg,png'],
+            'descripcion' => ['nullable'],
+            'publicacion' => ['nullable'],
+            'cantidad' => ['required','numeric'],
+            'activo' => ['required'],
+            'autores_id' => ['required'],
+            'aditoriales_id' => ['required'],
+            'categorias_id' => ['required']
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
+        $libro = Libro::where('_id', '=', $id)->get()[0];
+
+        $libro->titulo = $request['titulo'];
+
+        $libro->descripcion = $request['descripcion'];
+        $libro->publicacion = $request['publicacion'];
+        $libro->cantidad = $request['cantidad'];
+        $libro->activo = $request['activo'];
+        $libro->autores_id = $request['autores_id'];
+        $libro->aditoriales_id = $request['aditoriales_id'];
+        $libro->categorias_id = $request['categorias_id'];
+
+        $file = $request->file("imagen");
+        $nombrearchivo = $file->getClientOriginalName();
+        $file->move(public_path("images/uploads/"), $nombrearchivo);
+
+        $libro->imagen = $nombrearchivo;
+
+        $libro->save();
+
+        return Redirect::back()->with('status', "Libro actualizado");
     }
 
     /**
