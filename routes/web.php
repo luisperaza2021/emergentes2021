@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LibroController;
+use App\Models\Libro;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
