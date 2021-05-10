@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Autor;
+use App\Models\Categoria;
+use App\Models\Editorial;
+use App\Models\Libro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +24,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('libros', function () {
     return response()->json(Libro::all(), 200);
+});
+Route::get('autores', function () {
+    return response()->json(Autor::all(), 200);
+});
+Route::get('categorias', function () {
+    return response()->json(Categoria::all(), 200);
+});
+Route::get('editoriales', function () {
+    return response()->json(Editorial::all(), 200);
 });
