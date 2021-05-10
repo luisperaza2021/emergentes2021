@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Autor;
+use App\Models\Categoria;
+use App\Models\Editorial;
 use App\Models\Libro;
 use Illuminate\Http\Request;
 
@@ -65,7 +68,18 @@ class LibroController extends Controller
      */
     public function edit(Libro $libro)
     {
-        //
+        $params = [
+            'libro' => $libro,
+            'autores' => Autor::all(),
+            'editoriales' => Editorial::all(),
+            'categorias' => Categoria::all(),
+
+            'autor' => Autor::where('_id', '=', $libro->autores_id)->get()[0],
+            'editorial' => Editorial::where('_id', '=', $libro->editoriales_id)->get()[0],
+            'categoria' => Categoria::where('_id', '=', $libro->categorias_id)->get()[0],
+        ];
+
+        return view('admin.editBook', $params);
     }
 
     /**

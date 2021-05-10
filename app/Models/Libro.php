@@ -36,10 +36,10 @@ class Libro extends MongoModel
     }
 
     public function categoria(){
-        return $this->belongsTo(Categoria::class, '_id.toString()', 'editoriales_id');
+        return $this->hasOne(Categoria::class, '_id.toString()', 'editoriales_id');
     }
 
     public function editorial(){
-        return $this->belongsTo(Editorial::class, '_id.toString()', 'categorias_id');
+        return $this->hasOne(Editorial::class, '_id.toString()', 'categorias_id');
     }
 }

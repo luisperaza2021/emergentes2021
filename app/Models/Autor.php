@@ -18,7 +18,7 @@ class Autor extends MongoModel
         'nombre',
     ];
 
-    public function libros(){
-        return $this->hasMany(Libro::class);
+    public function libro(){
+        return $this->belongsTo(Libro::class);
     }
 }
