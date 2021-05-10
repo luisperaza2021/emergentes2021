@@ -26,7 +26,7 @@
                         <tbody>
                             @foreach ($libros as $libro)
                                 <tr>
-                                    <td><img src="{{ $libro->imagen }}" alt="imagenLibro" class="img-flui" height="60"></td>
+                                    <td><img src="{{ asset('images/uploads/'.$libro->imagen) }}" alt="imagenLibro" class="img-flui" height="60"></td>
                                     <td>{{ $libro->titulo }}</td>
                                     <td>{{ $libro->publicacion }}</td>
                                     <td>{{ $libro->cantidad }}</td>

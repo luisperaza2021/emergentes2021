@@ -29,7 +29,7 @@ class LibroFactory extends Factory
 
         return [
             "titulo" => $titulo,
-            "imagen" => "https://picsum.photos/641/1024",
+            "imagen" => "259-641x1024.jpg",
             "descripcion" => $this->faker->paragraph,
             "publicacion" => $this->faker->dateTimeThisDecade(),
             "cantidad" => $this->faker->numberBetween(0, 100),
