@@ -9,7 +9,7 @@
                     <h2 class="primary-color-text">Detalles del libro</h2>
                 </div>
                 <div class="col-12 col-md-3">
-                    <img src={{ $libro->imagen }} class="card-img-top custom-card-shadow" alt="Imagen del libro">
+                    <img src="{{ asset('images/uploads/'.$libro->imagen) }}" class="card-img-top custom-card-shadow" alt="Imagen del libro">
                 </div>
                 <div class="col-12 col-md-7 h-100">
                     <div class="d-flex flex-column">
