@@ -9,6 +9,7 @@ use App\Models\Libro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class LibroController extends Controller
 {
@@ -33,7 +34,13 @@ class LibroController extends Controller
      */
     public function create()
     {
+        $params = [
+            'autores' => Autor::all(),
+            'editoriales' => Editorial::all(),
+            'categorias' => Categoria::all(),
+        ];
 
+        return view('admin.createBook', $params);
     }
 
     /**
@@ -44,7 +51,42 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'titulo' => ['required'],
+            'imagen' => ['required','file', 'mimes:jpg,jpeg,png'],
+            'descripcion' => ['nullable'],
+            'publicacion' => ['nullable'],
+            'cantidad' => ['required','numeric'],
+            'autores_id' => ['required'],
+            'aditoriales_id' => ['required'],
+            'categorias_id' => ['required']
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
+        $libro = new Libro();
+
+        $libro->titulo = $request['titulo'];
+        $libro->descripcion = $request['descripcion'];
+        $libro->publicacion = $request['publicacion'];
+        $libro->cantidad = $request['cantidad'];
+        $libro->autores_id = $request['autores_id'];
+        $libro->editoriales_id = $request['aditoriales_id'];
+        $libro->categorias_id = $request['categorias_id'];
+        $libro->activo = true;
+        $libro->slug = Str::slug($request['titulo'], '-');
+
+        $file = $request->file("imagen");
+        $nombrearchivo = $file->getClientOriginalName();
+        $file->move(public_path("images/uploads/"), $nombrearchivo);
+
+        $libro->imagen = $nombrearchivo;
+
+        $libro->save();
+
+        return redirect()->route('libros.index');
     }
 
     /**
@@ -98,7 +140,6 @@ class LibroController extends Controller
             'descripcion' => ['nullable'],
             'publicacion' => ['nullable'],
             'cantidad' => ['required','numeric'],
-            'activo' => ['required'],
             'autores_id' => ['required'],
             'aditoriales_id' => ['required'],
             'categorias_id' => ['required']
@@ -111,14 +152,13 @@ class LibroController extends Controller
         $libro = Libro::where('_id', '=', $id)->get()[0];
 
         $libro->titulo = $request['titulo'];
-
         $libro->descripcion = $request['descripcion'];
         $libro->publicacion = $request['publicacion'];
         $libro->cantidad = $request['cantidad'];
-        $libro->activo = $request['activo'];
         $libro->autores_id = $request['autores_id'];
         $libro->aditoriales_id = $request['aditoriales_id'];
         $libro->categorias_id = $request['categorias_id'];
+        $libro->slug = Str::slug($request['titulo'], '-');
 
         $file = $request->file("imagen");
         $nombrearchivo = $file->getClientOriginalName();
@@ -139,6 +179,7 @@ class LibroController extends Controller
      */
     public function destroy(Libro $libro)
     {
-        //
+        $libro->delete();
+        return redirect()->route('libros.index');
     }
 }

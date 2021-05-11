@@ -29,7 +29,7 @@
                             <div class="col-12 col-md-3">
                                 <div class="card bg-transparent border-0 my-5 mx-3">
                                     <a href="{{ route('libros.show', $libro->slug) }}">
-                                        <img src={{ $libro->imagen }} class="card-img-top custom-card-shadow" alt="Imagen del libro">
+                                        <img src="{{ asset('images/uploads/'.$libro->imagen) }}" class="card-img-top custom-card-shadow" alt="Imagen del libro">
                                     </a>
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $libro->titulo }}</h5>

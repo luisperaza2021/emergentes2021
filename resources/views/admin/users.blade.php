@@ -10,29 +10,23 @@
         <div class="col-md-8">
             <div class="card custom-card-shadow">
                 <div class="card-body">
-                    <a class="btn btn-outline-dark mb-5" href="{{ route('users.index') }}">Administrar usuarios</a>
-                    <a class="float-end btn btn-primary text-white mb-5" href="{{ route('libros.create') }}">Crear</a>
+                    <a class="btn btn-outline-dark mb-5" href="{{ route('libros.index') }}">Administrar libros</a>
+                    <a class="float-end btn btn-primary text-white mb-5" href="{{ route('users.create') }}">Crear</a>
                     <table id="example" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Imagen</th>
-                                <th>Titulo</th>
-                                <th>Publicacion</th>
-                                <th>Cantidad</th>
-                                <th>Activo</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($libros as $libro)
+                            @foreach ($users as $user)
                                 <tr>
-                                    <td><img src="{{ asset('images/uploads/'.$libro->imagen) }}" alt="imagenLibro" class="img-flui" height="60"></td>
-                                    <td>{{ $libro->titulo }}</td>
-                                    <td>{{ $libro->publicacion }}</td>
-                                    <td>{{ $libro->cantidad }}</td>
-                                    <td>{{ $libro->activo }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
                                     <td>
-                                        <a href="{{ route('libros.edit', $libro) }}" class="btn btn-warning">Editar</a>
+                                        <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">Editar</a>
                                     </td>
                                 </tr>
                             @endforeach
