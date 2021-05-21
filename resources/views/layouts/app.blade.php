@@ -30,9 +30,9 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                  </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
@@ -51,6 +51,23 @@
                                 </li>
                             @endif
                         @else
+                            @if (Auth::user()->rol == "admin")
+                                <li class="nav-item">
+                                    <a class="nav-link" href={{ route('users.index') }}>Usuarios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href={{ route('libros.index') }}>Libros</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href={{ route('categorias') }}>Categorias</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href={{ route('autores') }}>Autores</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href={{ route('editoriales') }}>Editoriales</a>
+                                </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-bs-haspopup="true" aria-bs-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

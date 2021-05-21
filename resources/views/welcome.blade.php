@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-        <section class="mb-5">
+        {{-- <section class="mb-5">
             <div class="form-group custom-card-shadow">
                 <input type="search" class="form-control form-control-lg" id="search" name="search" placeholder="Buscar por libro, editorial">
             </div>
-        </section>
+        </section> --}}
 
         <header class="mt-5 card p-5 border-0 rounded">
             <div class="banner row">

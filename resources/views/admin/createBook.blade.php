@@ -28,7 +28,7 @@
 
                     <div class="mb-3">
                         <label for="titulo" class="form-label">Titulo</label>
-                        <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo">
+                        <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" value="{{ old('titulo') }}">
                     </div>
                     <div class="row">
                         <div class="col mb-3">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" rows="3"></textarea>
+                        <textarea class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" rows="3">{{ old('descripcion') }}</textarea>
                     </div>
                     <div class="mb-3">
                         <label for="publicacion" class="form-label">Publicación</label>
@@ -47,6 +47,10 @@
                     <div class="mb-3">
                         <label for="cantidad" class="form-label">Cantidad</label>
                         <input type="number" class="form-control @error('cantidad') is-invalid @enderror" id="cantidad" name="cantidad" value="1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="prestados" class="form-label">Prestados</label>
+                        <input type="number" class="form-control @error('prestados') is-invalid @enderror" id="prestados" name="prestados" value="0">
                     </div>
                     <div class="mb-3">
                         <label for="autor">Autor</label>

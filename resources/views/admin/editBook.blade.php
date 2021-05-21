@@ -53,6 +53,10 @@
                         <input type="number" class="form-control @error('cantidad') is-invalid @enderror" id="cantidad" name="cantidad" value="{{$libro->cantidad}}">
                     </div>
                     <div class="mb-3">
+                        <label for="prestados" class="form-label">Prestados</label>
+                        <input type="number" class="form-control @error('prestados') is-invalid @enderror" id="prestados" name="prestados" value="{{$libro->prestados}}">
+                    </div>
+                    <div class="mb-3">
                         <label for="autor">Autor</label>
                         <select class="js-example-basic-single js-states form-control @error('autores_id') is-invalid @enderror" id="autor" name="autores_id">
                             @foreach ($autores as $item)

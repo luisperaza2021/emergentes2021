@@ -43,6 +43,45 @@
             </form>
         </div>
     </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <form class="card custom-card-shadow" action="{{ route('update-password', $user->_id) }}" method="POST" >
+                @csrf
+                <div class="card-body">
+                    @if (session('statusPassword'))
+                        <div class="alert alert-success">
+                            <ul>
+                                <li>{{ session('statusPassword') }}</li>
+                            </ul>
+                        </div>
+                    @endif
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{ __('Password') }}</label>
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                        <div class="col-md-6">
+
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                    </div>
+                </div>
+                <div class="card-footer border-0">
+                    <button type="submit" class="float-end btn btn-primary custom-card-shadow text-white">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <!-- Modal -->

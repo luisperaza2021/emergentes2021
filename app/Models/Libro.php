@@ -18,6 +18,7 @@ class Libro extends MongoModel
         'descripcion',
         'publicacion',
         'cantidad',
+        'prestados',
         'activo',
         'slug',
         'autores_id',

@@ -57,13 +57,14 @@ class LibroController extends Controller
             'descripcion' => ['nullable'],
             'publicacion' => ['nullable'],
             'cantidad' => ['required','numeric'],
+            'prestados' => ['required','numeric'],
             'autores_id' => ['required'],
-            'aditoriales_id' => ['required'],
+            'editoriales_id' => ['required'],
             'categorias_id' => ['required']
         ]);
 
         if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator);
+            return Redirect::back()->withErrors($validator)->withInput();
         }
 
         $libro = new Libro();
@@ -72,8 +73,9 @@ class LibroController extends Controller
         $libro->descripcion = $request['descripcion'];
         $libro->publicacion = $request['publicacion'];
         $libro->cantidad = $request['cantidad'];
+        $libro->prestados = $request['prestados'];
         $libro->autores_id = $request['autores_id'];
-        $libro->editoriales_id = $request['aditoriales_id'];
+        $libro->editoriales_id = $request['editoriales_id'];
         $libro->categorias_id = $request['categorias_id'];
         $libro->activo = true;
         $libro->slug = Str::slug($request['titulo'], '-');
@@ -136,12 +138,13 @@ class LibroController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'titulo' => ['required'],
-            'imagen' => ['required','file', 'mimes:jpg,jpeg,png'],
+            'imagen' => ['nullable','file', 'mimes:jpg,jpeg,png'],
             'descripcion' => ['nullable'],
             'publicacion' => ['nullable'],
             'cantidad' => ['required','numeric'],
+            'prestados' => ['required','numeric'],
             'autores_id' => ['required'],
-            'aditoriales_id' => ['required'],
+            'editoriales_id' => ['required'],
             'categorias_id' => ['required']
         ]);
 
@@ -155,16 +158,18 @@ class LibroController extends Controller
         $libro->descripcion = $request['descripcion'];
         $libro->publicacion = $request['publicacion'];
         $libro->cantidad = $request['cantidad'];
+        $libro->prestados = $request['prestados'];
         $libro->autores_id = $request['autores_id'];
-        $libro->aditoriales_id = $request['aditoriales_id'];
+        $libro->editoriales_id = $request['editoriales_id'];
         $libro->categorias_id = $request['categorias_id'];
         $libro->slug = Str::slug($request['titulo'], '-');
 
-        $file = $request->file("imagen");
-        $nombrearchivo = $file->getClientOriginalName();
-        $file->move(public_path("images/uploads/"), $nombrearchivo);
-
-        $libro->imagen = $nombrearchivo;
+        if ($request['imagen'] != null) {
+            $file = $request->file("imagen");
+            $nombrearchivo = $file->getClientOriginalName();
+            $file->move(public_path("images/uploads/"), $nombrearchivo);
+            $libro->imagen = $nombrearchivo;
+        }
 
         $libro->save();
 

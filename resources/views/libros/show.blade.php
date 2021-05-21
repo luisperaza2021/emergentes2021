@@ -23,7 +23,7 @@
                             @else
                                 <a href="#!" class="btn primary-color text-white custom-card-shadow" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-book"></i> Prestar libro</a>
                             @endif
-                            <p class="fw-bold badge rounded-pill bg-primary bg-gradient">Disponibles: {{ $libro->cantidad }}</p>
+                            <p class="fw-bold badge rounded-pill bg-primary bg-gradient">Disponibles: {{ $libro->cantidad - $libro->prestados }}</p>
                         </div>
                     </div>
                 </div>

@@ -26,13 +26,16 @@ class LibroFactory extends Factory
     public function definition()
     {
         $titulo = $this->faker->sentence;
+        $cantidad = $this->faker->numberBetween(0, 100);
+        $prestados = $this->faker->numberBetween(0, $cantidad);
 
         return [
             "titulo" => $titulo,
             "imagen" => "259-641x1024.jpg",
             "descripcion" => $this->faker->paragraph,
             "publicacion" => $this->faker->dateTimeThisDecade(),
-            "cantidad" => $this->faker->numberBetween(0, 100),
+            "cantidad" => $cantidad,
+            "prestados" => $prestados,
             "slug" => Str::slug($titulo, '-'),
             "activo" => true,
 

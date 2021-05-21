@@ -20,6 +20,7 @@ class CreateLibrosTable extends Migration
             $table->text('descripcion')->nullable();
             $table->date('publicacion')->nullable()->default(new DateTime());
             $table->integer('cantidad');
+            $table->integer('prestados');
             $table->boolean('activo')->default(true);
             $table->string('slug')->unique();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -44,15 +45,17 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
             'email' => ['required','unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator);
+            return Redirect::back()->withErrors($validator)->withInput();
         }
 
         $user = new User();
         $user->name = $request['name'];
         $user->email = $request['email'];
+        $user->password = Hash::make($request['password']);
         $user->save();
 
         return Redirect::back()->with('status', "Usuario creado");
@@ -99,7 +102,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator);
+            return Redirect::back()->withErrors($validator)->withInput();
         }
 
         $user = User::where('_id', '=', $id)->get()[0];
@@ -108,6 +111,23 @@ class UserController extends Controller
         $user->save();
 
         return Redirect::back()->with('status', "Usuario actualizado");
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
+        $user = User::where('_id', '=', $id)->get()[0];
+        $user->password = Hash::make($request['password']);
+        $user->save();
+
+        return Redirect::back()->with('statusPassword', "Contraseña actualizado");
     }
 
     /**
