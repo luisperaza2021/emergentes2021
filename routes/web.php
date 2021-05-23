@@ -44,7 +44,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth', 'role'])->group(function () {
+Route::middleware('role')->group(function () {
     Route::resource('libros', LibroController::class);
     Route::resource('users', UserController::class);
     Route::post('updatePassword/{id}', [UserController::class, 'updatePassword'])->name('update-password');
