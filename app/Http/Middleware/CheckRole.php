@@ -16,6 +16,10 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next)
     {
+        if ($request->user() == null && $request->route()->getName() != "libros.show") {
+            return redirect()->route('home');
+        }
+
         if ($request->user()->rol != "admin" && $request->route()->getName() != "libros.show") {
             return redirect()->route('home');
         }
