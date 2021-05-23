@@ -43,56 +43,60 @@ Route::get('biblioteca', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('libros', LibroController::class);
-Route::resource('users', UserController::class);
-Route::post('updatePassword/{id}', [UserController::class, 'updatePassword'])->name('update-password');
 
-Route::get('categorias', [CategoriaController::class, 'index'])->name('categorias');
-Route::get('categorias/edit/{categoria}', [CategoriaController::class, 'edit'])->name('categorias.edit');
-Route::get('categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
+Route::middleware(['auth', 'role'])->group(function () {
+    Route::resource('libros', LibroController::class);
+    Route::resource('users', UserController::class);
+    Route::post('updatePassword/{id}', [UserController::class, 'updatePassword'])->name('update-password');
 
-Route::get('autores', [AutorController::class, 'index'])->name('autores');
-Route::get('autores/edit/{autor}', [AutorController::class, 'edit'])->name('autores.edit');
-Route::get('autores/create', [AutorController::class, 'create'])->name('autores.create');
+    Route::get('categorias', [CategoriaController::class, 'index'])->name('categorias');
+    Route::get('categorias/edit/{categoria}', [CategoriaController::class, 'edit'])->name('categorias.edit');
+    Route::get('categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
 
-Route::get('editoriales', [EditorialController::class, 'index'])->name('editoriales');
-Route::get('editoriales/edit/{editorial}', [EditorialController::class, 'edit'])->name('editoriales.edit');
-Route::get('editoriales/create', [EditorialController::class, 'create'])->name('editoriales.create');
+    Route::get('autores', [AutorController::class, 'index'])->name('autores');
+    Route::get('autores/edit/{autor}', [AutorController::class, 'edit'])->name('autores.edit');
+    Route::get('autores/create', [AutorController::class, 'create'])->name('autores.create');
+
+    Route::get('editoriales', [EditorialController::class, 'index'])->name('editoriales');
+    Route::get('editoriales/edit/{editorial}', [EditorialController::class, 'edit'])->name('editoriales.edit');
+    Route::get('editoriales/create', [EditorialController::class, 'create'])->name('editoriales.create');
 
 
-Route::post('itemStore', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'table' => ['required'],
-        'nombre' => ['required'],
-        'telefono' => ['nullable'],
-    ]);
+    Route::post('itemStore', function (Request $request) {
+        $validator = Validator::make($request->all(), [
+            'table' => ['required'],
+            'nombre' => ['required'],
+            'telefono' => ['nullable'],
+        ]);
 
-    if ($validator->fails()) {
-        return Redirect::back()->withErrors($validator)->withInput();
-    }
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-    DB::table($request['table'])->insert($request->all());
+        DB::table($request['table'])->insert($request->all());
 
-    return Redirect::back()->with('status', "Registro creado");
-})->name('item.store');
+        return Redirect::back()->with('status', "Registro creado");
+    })->name('item.store');
 
-Route::put('itemUpdate/{id}', function (Request $request, $id) {
-    $validator = Validator::make($request->all(), [
-        'table' => ['required'],
-        'nombre' => ['required'],
-        'telefono' => ['nullable'],
-    ]);
+    Route::put('itemUpdate/{id}', function (Request $request, $id) {
+        $validator = Validator::make($request->all(), [
+            'table' => ['required'],
+            'nombre' => ['required'],
+            'telefono' => ['nullable'],
+        ]);
 
-    if ($validator->fails()) {
-        return Redirect::back()->withErrors($validator)->withInput();
-    }
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-    DB::table($request['table'])->where('_id', '=', $id)->update($request->all());
+        DB::table($request['table'])->where('_id', '=', $id)->update($request->all());
 
-    return Redirect::back()->with('status', "Registro actualizado");
-})->name('item.update');
+        return Redirect::back()->with('status', "Registro actualizado");
+    })->name('item.update');
 
-Route::delete('itemDestroy/{id}', function (Request $request, $id) {
-    DB::table($request['table'])->where('_id', '=', $id)->delete();
-    return redirect()->route($request['table']);
-})->name('item.destroy');
+    Route::delete('itemDestroy/{id}', function (Request $request, $id) {
+        DB::table($request['table'])->where('_id', '=', $id)->delete();
+        return redirect()->route($request['table']);
+    })->name('item.destroy');
+
+});

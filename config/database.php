@@ -98,7 +98,7 @@ return [
             'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),
-            'dsn'=>'mongodb+srv://carranza32:carranza2@cluster0.zdbh6.mongodb.net/biblioteca_mongo',
+            'dsn'=>'mongodb+srv://luisperaza:Emergentes2021@cluster0.hk8iv.mongodb.net/biblioteca_mongo',
             'options' => [
                 'database' => 'styde' // sets the authentication database required by mongo 3
             ]
