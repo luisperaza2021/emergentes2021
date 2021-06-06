@@ -62,7 +62,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="editorial">Editorial</label>
-                        <select class="js-example-basic-single js-states form-control @error('aditoriales_id') is-invalid @enderror" id="editorial" name="aditoriales_id">
+                        <select class="js-example-basic-single js-states form-control @error('editoriales_id') is-invalid @enderror" id="editorial" name="editoriales_id">
                             @foreach ($editoriales as $item)
                                 <option value="{{ $item->_id }}">{{ $item->nombre }}</option>
                             @endforeach
